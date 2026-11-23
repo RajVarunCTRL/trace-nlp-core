@@ -3,7 +3,7 @@
 
 [![Thesis](https://img.shields.io/badge/-Thesis-blue.svg)](#)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](#)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](#)
 [![Node.js](https://img.shields.io/badge/node.js-v18+-green.svg)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -35,7 +35,7 @@ Where $\lambda$ represents the baseline latency decay constant for the specific 
 
 1. **Presentation Layer:** React.js frontend visualizing real-time temporal metrics.
 2. **I/O Gateway:** Node.js/Express server handling high-throughput WebSocket connections.
-3. **Event Broker:** Apache Kafka (or Redis Pub/Sub) buffering payloads to prevent thread-blocking.
+3. **Event Broker:** Apache Kafka on Aiven buffering payloads to prevent thread-blocking.
 4. **Compute Tier:** Python (FastAPI) microservices executing multi-threaded VADER and DistilBERT inference.
 5. **Storage:** MongoDB for unstructured chat persistence, paired with a Time-Series Database for rapid analytics retrieval.
 
@@ -43,7 +43,7 @@ Where $\lambda$ represents the baseline latency decay constant for the specific 
 
 ## 💻 Tech Stack
 
-* **Frontend:** React, TailwindCSS, Chart.js
+* **Frontend:** React, TailwindCSS, Recharts
 * **Backend (I/O):** Node.js, Express, Socket.io
 * **Message Broker:** Apache Kafka
 * **AI/Compute:** Python, FastAPI, HuggingFace Transformers (DistilBERT), NLTK (VADER)
