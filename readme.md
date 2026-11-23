@@ -1,52 +1,109 @@
-# T.R.A.C.E. Core 
-**Temporal Real-time Analysis & Concurrent Engine**
+# T.R.A.C.E. Core
 
-[![Thesis](https://img.shields.io/badge/-Thesis-blue.svg)](#)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
-[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](#)
-[![Node.js](https://img.shields.io/badge/node.js-v18+-green.svg)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+### Temporal Real-Time Analysis & Concurrent Engine
 
-> **A Scalable Full-Stack Framework for Temporal Behavioral Modeling and Concurrent NLP in Real-Time Systems.**
+<div align="center">
 
-T.R.A.C.E. is an event-driven intelligence core designed to extract temporal behavioral metrics and run concurrent NLP on real-time data streams. It completely decouples heavy machine learning inference from high-speed WebSockets, allowing for deep psychological and conversational analytics without bottling up the main web server.
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](#)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](#)
+[![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=0b1f33)](#)
+[![Kafka](https://img.shields.io/badge/Kafka-Aiven-231F20?style=for-the-badge&logo=apachekafka&logoColor=white)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
----
+**A scalable event-driven framework for real-time conversational analytics and temporal behavioral modeling.**
 
-## 🚀 Core Features
+</div>
 
-* **Event-Driven Decoupling:** Isolates the I/O layer (Node.js/WebSockets) from the compute layer (Python/NLP) using an asynchronous message broker.
-* **Concurrent NLP Pipeline:** Processes live text simultaneously through VADER (lexical speed) and DistilBERT (contextual depth).
-* **Temporal Behavioral Modeling:** Moves beyond static sentiment analysis by mapping response latency, interest shifts, and conversation dominance in real-time.
+T.R.A.C.E. Core decouples high-speed WebSocket communication from CPU-intensive natural language processing. Messages are delivered immediately, while sentiment analysis and behavioral telemetry run asynchronously through Apache Kafka.
 
 ---
 
-## 🧮 The Mathematics of Temporal Decay
+## System Overview
 
-Standard NLP treats messages as isolated strings. This engine factors in *time*. The system calculates real-time Engagement and Dominance scores, along with the **Ghosting Probability**, which is modeled as a temporal decay function:
+```text
+React / Vite
+     |
+     | Socket.IO
+     v
+Node.js Transport Service
+     |                         |
+     | MongoDB                 | Kafka
+     v                         v
+MongoDB Atlas        Python Intelligence Service
+                              |
+                              | InfluxDB
+                              v
+                       InfluxDB Cloud
+                              |
+                              | behavioral-metrics
+                              v
+                    Live React Telemetry Dashboard
+```
 
-$$P_g(t) = 1 - e^{-\lambda (t - t_{last})}$$
+---
 
-Where $\lambda$ represents the baseline latency decay constant for the specific user interaction, continuously updating as the conversation flows.
+## Core Features
+
+- **Real-Time Chat:** Room-based Socket.IO message delivery
+- **Asynchronous Processing:** Kafka decouples transport latency from NLP inference
+- **Sentiment Analysis:** Weighted VADER and DistilBERT ensemble
+- **Privacy Pipeline:** spaCy PERSON detection with email, phone, and ID masking
+- **Temporal Metrics:** Engagement, dominance, ghosting, and sentiment velocity
+- **Advanced Analytics:** Volatility, reciprocity, lexical diversity, and interaction graphs
+- **Cloud Infrastructure:** Aiven Kafka, MongoDB Atlas, and InfluxDB Cloud
+- **Live Dashboard:** React and Recharts telemetry visualization
 
 ---
 
-## 🏗️ System Architecture
+## Technology Stack
 
-1. **Presentation Layer:** React.js frontend visualizing real-time temporal metrics.
-2. **I/O Gateway:** Node.js/Express server handling high-throughput WebSocket connections.
-3. **Event Broker:** Apache Kafka on Aiven buffering payloads to prevent thread-blocking.
-4. **Compute Tier:** Python (FastAPI) microservices executing multi-threaded VADER and DistilBERT inference.
-5. **Storage:** MongoDB for unstructured chat persistence, paired with a Time-Series Database for rapid analytics retrieval.
+| Layer | Technologies |
+|---|---|
+| Frontend | React, Vite, Tailwind CSS, Socket.IO Client, Recharts |
+| Transport | Node.js, Express, Socket.IO, KafkaJS, Mongoose |
+| Intelligence | Python 3.11, FastAPI, aiokafka, NLTK VADER, DistilBERT |
+| Privacy | spaCy, regex fallbacks |
+| Event Broker | Apache Kafka on Aiven |
+| Data Stores | MongoDB Atlas, InfluxDB Cloud |
+| Benchmarking | Locust, Matplotlib |
+
+---
+
+## Temporal Metrics
+
+### Engagement Score
+
+An exponentially weighted score combining sentiment, message effort, and response speed.
+
+### Dominance Index
+
+A rolling measure based on word contribution, message frequency, and consecutive floor-holding bursts.
+
+### Ghosting Probability
+
+Modeled using exponential temporal decay:
+
+```text
+P_g(t) = 1 - e^(-lambda * delta_t)
+```
+
+where `delta_t` represents the silence duration since the latest room message.
 
 ---
 
-## 💻 Tech Stack
+## Data Flow
 
-* **Frontend:** React, TailwindCSS, Recharts
-* **Backend (I/O):** Node.js, Express, Socket.io
-* **Message Broker:** Apache Kafka
-* **AI/Compute:** Python, FastAPI, HuggingFace Transformers (DistilBERT), NLTK (VADER)
-* **Database:** MongoDB, InfluxDB (Time-Series)
+1. A React client sends a chat message through Socket.IO.
+2. The transport broadcasts it immediately to the room.
+3. The transport persists the message in MongoDB Atlas.
+4. The event is published to the `chat-messages` Kafka topic.
+5. The intelligence service masks PII, analyzes sentiment, and updates temporal metrics.
+6. Metrics are written to InfluxDB Cloud.
+7. The service publishes `behavioral-metrics` back to Kafka.
+8. The transport emits `metrics_update` events to the live dashboard.
 
 ---
+
+## Project Status
+
+T.R.A.C.E. Core includes a working real-time chat pipeline, cloud service integration, privacy-preserving NLP processing, temporal telemetry, graph-based influence analysis, and native Windows benchmarking support.
