@@ -22,22 +22,26 @@ T.R.A.C.E. Core decouples high-speed WebSocket communication from CPU-intensive 
 
 ```text
 React / Vite
-     |
-     | Socket.IO
-     v
-Node.js Transport Service
-     |                         |
-     | MongoDB                 | Kafka
-     v                         v
-MongoDB Atlas        Python Intelligence Service
-                              |
-                              | InfluxDB
-                              v
-                       InfluxDB Cloud
-                              |
-                              | behavioral-metrics
-                              v
-                    Live React Telemetry Dashboard
+      |
+      | Socket.IO
+      v
+Node.js Transport Service ---- MongoDB Atlas
+      |
+      | chat-messages
+      v
+Aiven Apache Kafka
+      |
+      | consumer
+      v
+Python Intelligence Service ---- InfluxDB Cloud
+      |
+      | behavioral-metrics
+      v
+Aiven Apache Kafka
+      |
+      | metrics_update
+      v
+Live React Telemetry Dashboard
 ```
 
 ---
